@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         Cambiador mcamb= new Cambiador();
 
         //obtiene lista de tipos de cambio actualizados de webservice
-        mtcs=mcamb.ObtieneTC();
+        mtcs=mcamb.ObtieneTC(getApplicationContext());
+        Log.d("yap", mtcs.toString());
 
         //actualiza equivalencias en base datos
         mcamb.ActualizaTC(mtcs);
