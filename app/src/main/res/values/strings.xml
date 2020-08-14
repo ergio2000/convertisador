@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Convertisador</string>
+    <string name="convertir">Convertir</string>
+
+    <string name="texto_ori">Origen</string>
+    <string name="texto_des">Destino</string>
+
+    <string name="texto_convertir">Config</string>
+
+
+    <!-- parejas de mensajes para cuadros de texto origen/destino, luego se intercambian -->
+    <string-array name="textos">
+        <item>Temperatura en Celsius</item>
+        <item>Temperatura en Fahrenheit</item>
+        <item>Peso en Kg</item>
+        <item>Peso en Lb</item>
+        <item>Distancia en metros</item>
+        <item>Distancia en pies</item>
+    </string-array>
+
+    <!-- mensajes de selector. en este caso no son intercambiables -->
+    <string-array name="unidades">
+        <item>C -> F</item>
+        <item>F -> C</item>
+        <item>Kg -> Lb</item>
+        <item>Lb -> Kg</item>
+        <item>m -> foot</item>
+        <item>foot -> m</item>
+    </string-array>
+
+</resources>
+
