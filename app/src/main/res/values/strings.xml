@@ -28,5 +28,10 @@
         <item>foot -> m</item>
     </string-array>
 
+    <string-array name="listasimple">
+        <item>C -> F</item>
+        <item>F -> C</item>
+    </string-array>
+
 </resources>
 
