@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                                 mtcs.add(mtc);
                                 //Log.wtf("keys", key);
                             }
-                            Log.wtf("cuenta mr in", String.valueOf( mtcs.size()));
+                            Log.wtf("cuenta tipos de cambio de web service mtcs", String.valueOf( mtcs.size()));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -176,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
                         Cambiador mcamb= new Cambiador();
                         mcamb.ActualizaTC(mtcs, getApplicationContext());
 
-                        //lee lista de monedas de bd
-                        mtcs=mcamb.LeeMonedas(getApplicationContext());
-                        Log.wtf("cuenta mtcs ", String.valueOf( mtcs.size()));
+                        //lee lista de monedas a visualizar de bd
+                        mtcs=mcamb.LeeMonedas(getApplicationContext(),1);
+                        Log.wtf("cuenta tipos de cambio ver=1 de base de datos mtcs ", String.valueOf( mtcs.size()));
 
 
                         //actualiza spinner
