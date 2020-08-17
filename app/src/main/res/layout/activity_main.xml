@@ -25,11 +25,11 @@
             android:entries="@array/listasimple" />
 
         <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_config"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="4"
-        android:text="@string/texto_convertir" />
+        android:text="@string/texto_configurar" />
     </LinearLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tf_unidades1"

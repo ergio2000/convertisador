@@ -125,6 +125,17 @@ public class MainActivity extends AppCompatActivity {
         //deshabilita boton
         btn_convertir.setEnabled(false);
 
+        //adiciona listener de boton configuracion
+        final Button btn_config = findViewById(R.id.btn_config);
+        btn_config.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this,  Configurar.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     //onstart se encarga de actualizar todos los tipos de cambio visualizados en la base de datos
@@ -136,9 +147,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        //String url = "https://openexchangerates.org/api/latest.json?app_id=9cd53ca94fca45d6b3d1c50b60c8463f&symbols=PEN,EUR,COP,CLP";
-        String url = "https://openexchangerates.org/api/latest.json?app_id=9cd53ca94fca45d6b3d1c50b60c8463f";
+        String url = getString(R.string.url_webservice);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null,  new Response.Listener<JSONObject>()

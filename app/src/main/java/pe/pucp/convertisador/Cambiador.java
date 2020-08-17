@@ -35,7 +35,7 @@ public class Cambiador {
     //metodos
 
     // se utiliza el metodo de leer solo las monedas que el usuario desea visualizar (se espera pocas)
-    // luego se reescriben todas,etablciendo la opcion de visualizar
+    // luego se reescriben todas,estableciendo la opcion de visualizar
     public void ActualizaTC(List<TipoCambio> ptcs, Context pContexto)
     {
         SQLiteDatabase db;
@@ -49,6 +49,7 @@ public class Cambiador {
         try {
             //lee monedas con visualizar=1
             monedasSi=LeeMonedas(pContexto,1);
+            Log.d("ActualizaTC monedasSi:", String.valueOf(monedasSi.size() ));
             ListIterator<TipoCambio> limsi = monedasSi.listIterator(); //iterador para busqueda
 
             //borra todas la monedas
@@ -75,15 +76,27 @@ public class Cambiador {
                 {
                     //lee objeto monedas si
                     mtc2=limsi.next();
+                    //Log.d("ActualizaTC iters", mtc.Moneda+"-"+mtc2.Moneda);
                     //si existe actualiza ver y sale
-                    if(mtc.Moneda==mtc2.Moneda){mVer=1;break;}
+                    if(mtc.Moneda.equals(mtc2.Moneda))
+                    {
+                        mVer=1;
+                        //Log.d("ActualizaTC monSi=1:", mtc.Moneda);
+                        break;
+                    }
                 }
+                //auxiliar test
+                //if(i<=10){mVer=1;}
+
                 //actualiza ver
                 values.put("ver", mVer);
 
                 //inserta en base de datos
                 db.insertOrThrow("equivalencias", null, values);
                 //Log.d("insertando", mtc.Moneda);
+
+                //incrementa id
+                i=i+1;
             }
 
             //libera
@@ -127,21 +140,22 @@ public class Cambiador {
         try {
             //campos de consulta
             Cursor c;
-            String[] campos = new String[] {"moneda", "equivalencia"};
+            String[] campos = new String[] {"moneda", "equivalencia","ver"};
             String[] args = new String[] {"1"}; //filtro por defecto
             String where="ver=?";
+            String orderby="ver desc, moneda asc";
 
             //pregunta si existe filtro
             if(pFiltro==-1)
             {
                 //sin filtro: todos
-                c = db.query("EQUIVALENCIAS", campos, null, null, null, null, null);
+                c = db.query("EQUIVALENCIAS", campos, null, null, null, null, orderby);
             }
             else
             {
                 //con filtro
                 args[0]= String.valueOf(pFiltro);
-                c = db.query("EQUIVALENCIAS", campos, where, args, null, null, null);
+                c = db.query("EQUIVALENCIAS", campos, where, args, null, null, orderby);
             }
 
             //Nos aseguramos de que existe al menos un registro
@@ -150,10 +164,11 @@ public class Cambiador {
                 do {
                     String mimoneda= c.getString(0);
                     int miequivalencia = c.getInt(1);
+                    int miver = c.getInt(2);
 
                     //crea objeto
                     tc= new TipoCambio( mimoneda, miequivalencia);
-                    tc.Ver=1;
+                    tc.Ver=miver;
                     //adiciona a coleccion
                     mr.add(tc);
 
@@ -166,7 +181,7 @@ public class Cambiador {
             //actualiza monedas con visualizar = 1
         }catch(Exception e)
         {
-            System.out.println("Error " + e.getMessage());
+            System.out.println("Error LeeMonedas" + e.getMessage());
         }
 
         db.close();
@@ -178,10 +193,32 @@ public class Cambiador {
     {
         SQLiteDatabase db;
         final DbHandler dbHandler = new DbHandler( pContexto);
-        db = dbHandler.getReadableDatabase();
+        db = dbHandler.getWritableDatabase();
+        db.close();
     }
 
+    //actualiza el campo ver de la momeda seleccionada
+    public void ActualizaVer(TipoCambio pTC, Context pContexto)
+    {
+        SQLiteDatabase db;
+        final DbHandler dbHandler = new DbHandler( pContexto);
+        db = dbHandler.getWritableDatabase();
 
+        try {
+            //campos de actualizacion
+            Log.d("monedaActualiza",pTC.Moneda+"-"+pTC.Ver);
+            String s="update equivalencias set ver="+ String.valueOf( pTC.Ver ) +" where moneda='"+pTC.Moneda+"'";
+            Log.d("monedaActualiza sql",s);
+            db.execSQL(s);
+
+        }catch(Exception e)
+        {
+            System.out.println("Error ActualizaVer" + e.getMessage());
+        }
+
+        db.close();
+
+    }
 
 
 }

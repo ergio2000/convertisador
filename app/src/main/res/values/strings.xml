@@ -5,7 +5,8 @@
     <string name="texto_ori">Origen</string>
     <string name="texto_des">Destino</string>
 
-    <string name="texto_convertir">Config</string>
+    <string name="texto_configurar">Configurar</string>
+    <string name="texto_actualizartc">Actualizar Tipo de Cambio</string>
 
 
     <!-- parejas de mensajes para cuadros de texto origen/destino, luego se intercambian -->
@@ -32,6 +33,6 @@
         <item>C -> F</item>
         <item>F -> C</item>
     </string-array>
-
+    <string name="url_webservice">https://openexchangerates.org/api/latest.json?app_id=9cd53ca94fca45d6b3d1c50b60c8463f</string>
 </resources>
 
